@@ -26,9 +26,9 @@ const IndiaMap: React.FC = () => {
   });
 
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const router = useRouter(); // For navigation
+  const router = useRouter();
 
-  // Debounced update for tooltip
+  // Debounced tooltip update
   const updateTooltip = useCallback(
     (e: React.MouseEvent<SVGElement>, name: string) => {
       if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
@@ -37,41 +37,39 @@ const IndiaMap: React.FC = () => {
         const mapContainer = (e.currentTarget as unknown as HTMLElement).getBoundingClientRect();
         setTooltip({
           visible: true,
-          x: e.clientX - mapContainer.left + 20, // Offset tooltip horizontally
-          y: e.clientY - mapContainer.top - 40, // Offset tooltip vertically
+          x: e.clientX - mapContainer.left + 20,
+          y: e.clientY - mapContainer.top - 40,
           name,
         });
-      }, 50); // Adjust debounce delay as needed (e.g., 50ms)
+      }, 50);
     },
     []
   );
 
-  // Handle hover to display tooltip
   const handleMouseMove = (e: React.MouseEvent<SVGElement>, name: string) => {
     updateTooltip(e, name);
   };
 
-  // Hide tooltip on mouse leave
   const handleMouseLeave = () => {
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
     setTooltip((prevTooltip) => ({ ...prevTooltip, visible: false }));
   };
 
-  // Handle state click
   const stateOnClick = (data: Record<string, any>, name: string) => {
     setActiveState({ data, name });
-    const sanitizedName = name.replace(/\s+/g, "-").toLowerCase(); // Sanitize name for URL
+    const sanitizedName = name.replace(/\s+/g, "-").toLowerCase();
     router.push(`/state/${sanitizedName}`);
   };
 
   return (
     <div
       style={{
-        width: "830px",
-        height: "694px",
+        width: "700px", // smaller than before
+        height: "580px", // reduced height so it won’t cut
         overflow: "hidden",
         position: "relative",
         cursor: "pointer",
+        margin: "0 auto", // center map horizontally
       }}
     >
       {/* Tooltip */}
@@ -87,7 +85,7 @@ const IndiaMap: React.FC = () => {
             borderRadius: "4px",
             fontSize: "14px",
             pointerEvents: "none",
-            transform: "translate(-50%, -100%)", // Center tooltip above cursor
+            transform: "translate(-50%, -100%)",
           }}
         >
           {tooltip.name || "No Data"}

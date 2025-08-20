@@ -59,30 +59,42 @@
   }
 
   * {
-    @apply border-border; /* Apply border color to all elements */
+    @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground; /* Apply background and text color */
-    font-family: Helvetica, sans-serif; /* Set font family */
-    background-image: url('/bgimg.png'); /* Set background image */
-    background-size: cover; /* Cover the entire background */
-    background-position: center; /* Center the background image */
+    @apply bg-background text-foreground;
+    font-family: Helvetica, sans-serif;
+    background-image: url('/bgimg.png');
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@layer components {
+  /* Container style */
+  .samvad-container {
+    @apply bg-card shadow-lg rounded-2xl p-6 max-w-3xl mx-auto mt-8;
+    height: 70vh; /* reduced height */
+  }
+
+  /* Heading style */
+  .samvad-heading {
+    @apply text-2xl font-bold text-center mb-4 text-primary;
   }
 }
 
 @layer utilities {
   .text-balance {
-    text-wrap: balance; /* Custom utility for text wrapping */
+    text-wrap: balance;
   }
 }
 
-
 /* Hide scrollbar */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
+  display: none;
 }

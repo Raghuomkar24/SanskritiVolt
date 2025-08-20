@@ -14,16 +14,16 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String
   password String
   username String
-  state String
-  bio String
-  token Int
-  badges Badge[]
-  posts Post[]
+  state    String
+  bio      String
+  token    Int     @default(0)   // 🔹 change to Int
+  badges   Badge[]
+  posts    Post[]
 }
 
 model Picture {
